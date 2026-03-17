@@ -1,0 +1,870 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>IT Helpdesk — Operations Dashboard</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+<style>
+  :root {
+    --bg:        #0a0c10;
+    --surface:   #111420;
+    --border:    #1e2535;
+    --border2:   #2a3348;
+    --text:      #c9d1e0;
+    --muted:     #5a6580;
+    --accent:    #3b82f6;
+    --green:     #22c55e;
+    --yellow:    #f59e0b;
+    --red:       #ef4444;
+    --purple:    #a855f7;
+    --cyan:      #06b6d4;
+    --p1:        #ef4444;
+    --p2:        #f97316;
+    --p3:        #3b82f6;
+    --p4:        #6b7280;
+    --font-mono: 'IBM Plex Mono', monospace;
+    --font-sans: 'IBM Plex Sans', sans-serif;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font-sans);
+    font-size: 13px;
+    line-height: 1.5;
+    min-height: 100vh;
+  }
+
+  /* ── TOPBAR ── */
+  .topbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 24px;
+    height: 52px;
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  .topbar-left { display: flex; align-items: center; gap: 16px; }
+  .logo {
+    font-family: var(--font-mono);
+    font-weight: 600;
+    font-size: 14px;
+    color: var(--accent);
+    letter-spacing: 0.05em;
+  }
+  .logo span { color: var(--muted); }
+  .breadcrumb { color: var(--muted); font-size: 12px; }
+  .topbar-right { display: flex; align-items: center; gap: 16px; }
+  .badge-live {
+    display: flex; align-items: center; gap: 6px;
+    background: rgba(34,197,94,0.1);
+    border: 1px solid rgba(34,197,94,0.3);
+    border-radius: 4px;
+    padding: 3px 10px;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--green);
+  }
+  .badge-live::before {
+    content: '';
+    width: 6px; height: 6px;
+    background: var(--green);
+    border-radius: 50%;
+    animation: pulse 1.8s infinite;
+  }
+  @keyframes pulse {
+    0%,100% { opacity: 1; } 50% { opacity: 0.3; }
+  }
+  .ts { font-family: var(--font-mono); font-size: 11px; color: var(--muted); }
+
+  /* ── ALERTS BANNER ── */
+  .alerts-banner {
+    background: rgba(239,68,68,0.07);
+    border-bottom: 1px solid rgba(239,68,68,0.2);
+    padding: 8px 24px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    overflow-x: auto;
+  }
+  .alert-pill {
+    display: flex; align-items: center; gap: 7px;
+    white-space: nowrap;
+    font-size: 12px;
+  }
+  .alert-pill.crit { color: #fca5a5; }
+  .alert-pill.warn { color: #fcd34d; }
+  .alert-pill.info { color: #93c5fd; }
+  .alert-dot { width: 7px; height: 7px; border-radius: 50%; flex-shrink:0; }
+  .alert-dot.crit { background: var(--red); }
+  .alert-dot.warn { background: var(--yellow); }
+  .alert-dot.info { background: var(--accent); }
+  .alerts-label {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--red);
+    font-weight: 600;
+    white-space: nowrap;
+  }
+  .sep { color: var(--border2); }
+
+  /* ── MAIN LAYOUT ── */
+  .main { padding: 20px 24px 40px; max-width: 1400px; margin: 0 auto; }
+
+  /* ── STAT CARDS ── */
+  .kpi-row {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+  .kpi {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 14px 16px;
+    transition: border-color 0.2s;
+  }
+  .kpi:hover { border-color: var(--border2); }
+  .kpi-label { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 8px; }
+  .kpi-value { font-family: var(--font-mono); font-size: 26px; font-weight: 600; line-height: 1; }
+  .kpi-sub { font-size: 11px; color: var(--muted); margin-top: 5px; }
+  .kpi-value.green { color: var(--green); }
+  .kpi-value.red   { color: var(--red); }
+  .kpi-value.yellow{ color: var(--yellow); }
+  .kpi-value.blue  { color: var(--accent); }
+  .kpi-value.cyan  { color: var(--cyan); }
+  .kpi-value.purple{ color: var(--purple); }
+
+  /* ── SECTION GRID ── */
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 14px; }
+  .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; margin-bottom: 14px; }
+  .grid-1 { margin-bottom: 14px; }
+
+  /* ── PANEL ── */
+  .panel {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  .panel-header {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--border);
+  }
+  .panel-title {
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    color: var(--text);
+  }
+  .panel-tag {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    color: var(--muted);
+  }
+  .panel-body { padding: 16px; }
+
+  /* ── CHART: VOLUME TREND ── */
+  .chart-area {
+    height: 120px;
+    display: flex;
+    align-items: flex-end;
+    gap: 6px;
+    padding-top: 10px;
+  }
+  .bar-group { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 4px; }
+  .bar {
+    width: 100%;
+    border-radius: 3px 3px 0 0;
+    background: var(--accent);
+    opacity: 0.7;
+    transition: opacity 0.2s;
+    min-height: 4px;
+    position: relative;
+  }
+  .bar:hover { opacity: 1; }
+  .bar-label { font-family: var(--font-mono); font-size: 9px; color: var(--muted); }
+  .bar-val { font-family: var(--font-mono); font-size: 10px; color: var(--text); }
+  .chart-title { font-size: 11px; color: var(--muted); margin-bottom: 6px; }
+
+  /* ── PRIORITY DONUT ── */
+  .donut-wrap { display: flex; align-items: center; gap: 20px; }
+  .donut-svg { flex-shrink: 0; }
+  .donut-legend { display: flex; flex-direction: column; gap: 8px; }
+  .legend-row { display: flex; align-items: center; gap: 8px; font-size: 12px; }
+  .legend-dot { width: 10px; height: 10px; border-radius: 2px; flex-shrink: 0; }
+  .legend-count { font-family: var(--font-mono); margin-left: auto; padding-left: 12px; }
+
+  /* ── TEAM WORKLOAD TABLE ── */
+  .team-table { width: 100%; border-collapse: collapse; }
+  .team-table th {
+    font-size: 10px; text-transform: uppercase; letter-spacing: 0.07em;
+    color: var(--muted); text-align: left; padding: 0 0 10px;
+    font-weight: 500;
+  }
+  .team-table td { padding: 7px 0; border-top: 1px solid var(--border); }
+  .team-name { font-size: 12px; font-weight: 500; }
+  .team-badge {
+    display: inline-block;
+    font-family: var(--font-mono); font-size: 10px;
+    padding: 1px 7px; border-radius: 3px;
+    margin-left: 6px;
+  }
+  .badge-l1 { background: rgba(59,130,246,0.15); color: #93c5fd; }
+  .badge-l2 { background: rgba(168,85,247,0.15); color: #d8b4fe; }
+  .badge-l3 { background: rgba(239,68,68,0.15);  color: #fca5a5; }
+  .badge-auto{ background: rgba(34,197,94,0.15);  color: #86efac; }
+
+  .workload-bar-row { display: flex; align-items: center; gap: 8px; }
+  .workload-bar-track {
+    flex: 1; height: 5px; background: var(--border); border-radius: 3px; overflow: hidden;
+  }
+  .workload-bar-fill {
+    height: 100%; border-radius: 3px;
+    background: linear-gradient(90deg, var(--accent), var(--cyan));
+  }
+  .workload-bar-fill.danger { background: linear-gradient(90deg, var(--yellow), var(--red)); }
+  .num { font-family: var(--font-mono); font-size: 11px; color: var(--muted); min-width: 20px; text-align: right; }
+
+  /* ── CATEGORY BREAKDOWN ── */
+  .cat-row {
+    display: flex; align-items: center;
+    gap: 10px;
+    padding: 6px 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .cat-row:last-child { border-bottom: none; }
+  .cat-name { font-size: 12px; flex: 1; }
+  .cat-bar-track { width: 100px; height: 4px; background: var(--border); border-radius: 2px; }
+  .cat-bar-fill { height: 100%; border-radius: 2px; background: var(--accent); }
+  .cat-count { font-family: var(--font-mono); font-size: 11px; color: var(--muted); min-width: 24px; text-align: right; }
+
+  /* ── SLA TICKER ── */
+  .sla-table { width: 100%; border-collapse: collapse; }
+  .sla-table th {
+    font-size: 10px; text-transform: uppercase; letter-spacing: 0.06em;
+    color: var(--muted); text-align: left; padding: 0 8px 10px 0;
+    font-weight: 500;
+  }
+  .sla-table td { padding: 6px 8px 6px 0; border-top: 1px solid var(--border); font-size: 12px; }
+  .sla-status {
+    display: inline-flex; align-items: center; gap: 5px;
+    font-family: var(--font-mono); font-size: 10px;
+    padding: 2px 8px; border-radius: 3px; font-weight: 600;
+  }
+  .sla-breached { background: rgba(239,68,68,0.15); color: var(--red); }
+  .sla-at-risk  { background: rgba(245,158,11,0.15); color: var(--yellow); }
+  .sla-warning  { background: rgba(59,130,246,0.15); color: var(--accent); }
+  .sla-ok       { background: rgba(34,197,94,0.15);  color: var(--green); }
+  .tid { font-family: var(--font-mono); font-size: 11px; color: var(--muted); }
+  .prio-tag {
+    font-family: var(--font-mono); font-size: 10px; padding: 1px 6px; border-radius: 3px;
+  }
+  .p1 { background: rgba(239,68,68,0.15); color: var(--p1); }
+  .p2 { background: rgba(249,115,22,0.15); color: var(--p2); }
+  .p3 { background: rgba(59,130,246,0.15); color: var(--p3); }
+  .p4 { background: rgba(107,114,128,0.15); color: var(--p4); }
+
+  /* ── WORKFLOW DIAGRAM ── */
+  .flow-wrap {
+    display: flex; align-items: flex-start; gap: 0;
+    padding: 12px 0;
+    overflow-x: auto;
+  }
+  .flow-node {
+    display: flex; flex-direction: column; align-items: center;
+    min-width: 110px;
+  }
+  .flow-box {
+    width: 94px; min-height: 58px;
+    border: 1px solid var(--border2);
+    border-radius: 6px;
+    padding: 8px 10px;
+    text-align: center;
+    font-size: 11px;
+    font-weight: 500;
+    position: relative;
+  }
+  .flow-box.intake   { border-color: rgba(59,130,246,0.5); background: rgba(59,130,246,0.07); }
+  .flow-box.triage   { border-color: rgba(168,85,247,0.5); background: rgba(168,85,247,0.07); }
+  .flow-box.auto     { border-color: rgba(34,197,94,0.5);  background: rgba(34,197,94,0.07); color: var(--green); }
+  .flow-box.assign   { border-color: rgba(6,182,212,0.5);  background: rgba(6,182,212,0.07); }
+  .flow-box.sla      { border-color: rgba(245,158,11,0.5); background: rgba(245,158,11,0.07); }
+  .flow-box.escalate { border-color: rgba(239,68,68,0.5);  background: rgba(239,68,68,0.07); color: var(--red); }
+  .flow-box.resolve  { border-color: rgba(34,197,94,0.5);  background: rgba(34,197,94,0.07); color: var(--green); }
+  .flow-sub { font-size: 10px; color: var(--muted); margin-top: 4px; }
+  .flow-arrow {
+    display: flex; align-items: center;
+    padding: 0 4px;
+    padding-top: 20px;
+    color: var(--muted);
+    font-size: 14px;
+  }
+  .flow-branch {
+    display: flex; flex-direction: column;
+    gap: 8px;
+    padding-top: 0;
+  }
+
+  /* ── AUTO-RESOLVE GAUGE ── */
+  .gauge-row { display: flex; gap: 16px; }
+  .gauge-item { flex: 1; }
+  .gauge-label { font-size: 11px; color: var(--muted); margin-bottom: 6px; }
+  .gauge-track { height: 8px; background: var(--border); border-radius: 4px; overflow: hidden; margin-bottom: 5px; }
+  .gauge-fill { height: 100%; border-radius: 4px; transition: width 0.8s ease; }
+  .g-green { background: linear-gradient(90deg, #16a34a, #22c55e); }
+  .g-blue  { background: linear-gradient(90deg, #2563eb, #3b82f6); }
+  .g-red   { background: linear-gradient(90deg, #dc2626, #ef4444); }
+  .g-cyan  { background: linear-gradient(90deg, #0891b2, #06b6d4); }
+  .gauge-stat { font-family: var(--font-mono); font-size: 13px; font-weight: 600; }
+
+  /* ── RECENT TICKETS TABLE ── */
+  .ticket-table { width: 100%; border-collapse: collapse; }
+  .ticket-table th {
+    font-size: 10px; text-transform: uppercase; letter-spacing: 0.07em;
+    color: var(--muted); text-align: left;
+    padding: 0 12px 10px 0; font-weight: 500;
+  }
+  .ticket-table td { padding: 8px 12px 8px 0; border-top: 1px solid var(--border); }
+  .ticket-title { font-size: 12px; max-width: 280px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .team-chip {
+    font-size: 10px; font-family: var(--font-mono);
+    padding: 2px 7px; border-radius: 3px;
+    background: rgba(255,255,255,0.05); color: var(--text);
+  }
+  .agent-name { font-size: 11px; color: var(--muted); }
+
+  /* ── FOOTER ── */
+  .footer {
+    margin-top: 32px;
+    padding-top: 16px;
+    border-top: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .footer-left { font-size: 11px; color: var(--muted); }
+  .footer-links { display: flex; gap: 16px; }
+  .footer-link { font-size: 11px; font-family: var(--font-mono); color: var(--muted); text-decoration: none; }
+  .footer-link:hover { color: var(--accent); }
+
+  /* ── SCROLL ── */
+  ::-webkit-scrollbar { width: 4px; height: 4px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 2px; }
+</style>
+</head>
+<body>
+
+<!-- TOPBAR -->
+<div class="topbar">
+  <div class="topbar-left">
+    <div class="logo">IT<span>desk</span> //</div>
+    <div class="breadcrumb">Operations Dashboard — Live Snapshot</div>
+  </div>
+  <div class="topbar-right">
+    <div class="badge-live">LIVE</div>
+    <div class="ts" id="clock"></div>
+  </div>
+</div>
+
+<!-- ALERTS BANNER -->
+<div class="alerts-banner">
+  <div class="alerts-label">⚠ ALERTS (3)</div>
+  <div class="sep">|</div>
+  <div class="alert-pill crit"><div class="alert-dot crit"></div>CRITICAL — SLA compliance 17.9% below 90% threshold</div>
+  <div class="sep">|</div>
+  <div class="alert-pill crit"><div class="alert-dot crit"></div>CRITICAL — 13 P1-Critical tickets currently open</div>
+  <div class="sep">|</div>
+  <div class="alert-pill info"><div class="alert-dot info"></div>INFO — Auto-resolve rate 26.7% — consider expanding automation rules</div>
+</div>
+
+<div class="main">
+
+  <!-- KPI ROW -->
+  <div class="kpi-row">
+    <div class="kpi">
+      <div class="kpi-label">Total Tickets</div>
+      <div class="kpi-value blue">60</div>
+      <div class="kpi-sub">Last 7 days</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-label">Open</div>
+      <div class="kpi-value yellow">28</div>
+      <div class="kpi-sub">Requires action</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-label">Resolved</div>
+      <div class="kpi-value green">32</div>
+      <div class="kpi-sub">53.3% closure rate</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-label">Auto-Resolved</div>
+      <div class="kpi-value cyan">16</div>
+      <div class="kpi-sub">Zero human touch</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-label">Avg Resolution</div>
+      <div class="kpi-value blue">22.3h</div>
+      <div class="kpi-sub">Across all tickets</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-label">SLA Compliance</div>
+      <div class="kpi-value red">17.9%</div>
+      <div class="kpi-sub">Target: ≥90%</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-label">Triage Accuracy</div>
+      <div class="kpi-value purple">70.8%</div>
+      <div class="kpi-sub">AI confidence avg</div>
+    </div>
+  </div>
+
+  <!-- ROW 1: Volume + Priority Donut + Gauges -->
+  <div class="grid-3">
+
+    <!-- Volume Trend -->
+    <div class="panel">
+      <div class="panel-header">
+        <div class="panel-title">Ticket Volume — 7 Day Trend</div>
+        <div class="panel-tag">daily intake</div>
+      </div>
+      <div class="panel-body">
+        <div class="chart-area" id="volumeChart"></div>
+      </div>
+    </div>
+
+    <!-- Priority Breakdown Donut -->
+    <div class="panel">
+      <div class="panel-header">
+        <div class="panel-title">Priority Distribution</div>
+        <div class="panel-tag">all tickets</div>
+      </div>
+      <div class="panel-body">
+        <div class="donut-wrap">
+          <svg class="donut-svg" width="110" height="110" viewBox="0 0 110 110">
+            <!-- P1: 13/60 = 21.7% -->
+            <circle cx="55" cy="55" r="40" fill="none" stroke="#1e2535" stroke-width="18"/>
+            <!-- P1 Critical -->
+            <circle cx="55" cy="55" r="40" fill="none" stroke="#ef4444" stroke-width="18"
+              stroke-dasharray="54.5 196.5" stroke-dashoffset="0" transform="rotate(-90 55 55)"/>
+            <!-- P3 Medium (47/60 = 78.3%) -->
+            <circle cx="55" cy="55" r="40" fill="none" stroke="#3b82f6" stroke-width="18"
+              stroke-dasharray="195.5 56" stroke-dashoffset="-54.5" transform="rotate(-90 55 55)"/>
+            <text x="55" y="51" text-anchor="middle" fill="#c9d1e0" font-family="IBM Plex Mono" font-size="16" font-weight="600">60</text>
+            <text x="55" y="64" text-anchor="middle" fill="#5a6580" font-family="IBM Plex Sans" font-size="9">tickets</text>
+          </svg>
+          <div class="donut-legend">
+            <div class="legend-row"><div class="legend-dot" style="background:var(--red)"></div>P1-Critical<span class="legend-count">13</span></div>
+            <div class="legend-row"><div class="legend-dot" style="background:var(--p2)"></div>P2-High<span class="legend-count">0</span></div>
+            <div class="legend-row"><div class="legend-dot" style="background:var(--accent)"></div>P3-Medium<span class="legend-count">47</span></div>
+            <div class="legend-row"><div class="legend-dot" style="background:var(--p4)"></div>P4-Low<span class="legend-count">0</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Performance Gauges -->
+    <div class="panel">
+      <div class="panel-header">
+        <div class="panel-title">System Performance</div>
+        <div class="panel-tag">key ratios</div>
+      </div>
+      <div class="panel-body">
+        <div style="display:flex;flex-direction:column;gap:14px">
+          <div class="gauge-item">
+            <div class="gauge-label">SLA Compliance Rate</div>
+            <div class="gauge-track"><div class="gauge-fill g-red" style="width:17.9%"></div></div>
+            <div class="gauge-stat" style="color:var(--red)">17.9% <span style="font-size:10px;color:var(--muted)">/ target 90%</span></div>
+          </div>
+          <div class="gauge-item">
+            <div class="gauge-label">Auto-Resolve Rate</div>
+            <div class="gauge-track"><div class="gauge-fill g-green" style="width:26.7%"></div></div>
+            <div class="gauge-stat" style="color:var(--green)">26.7% <span style="font-size:10px;color:var(--muted)">/ target 20%</span></div>
+          </div>
+          <div class="gauge-item">
+            <div class="gauge-label">Triage Confidence</div>
+            <div class="gauge-track"><div class="gauge-fill g-blue" style="width:70.8%"></div></div>
+            <div class="gauge-stat" style="color:var(--accent)">70.8% <span style="font-size:10px;color:var(--muted)">/ target 80%</span></div>
+          </div>
+          <div class="gauge-item">
+            <div class="gauge-label">Closure Rate</div>
+            <div class="gauge-track"><div class="gauge-fill g-cyan" style="width:53.3%"></div></div>
+            <div class="gauge-stat" style="color:var(--cyan)">53.3% <span style="font-size:10px;color:var(--muted)">/ target 70%</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ROW 2: Team Workload + Category Breakdown -->
+  <div class="grid-2">
+
+    <!-- Team Workload -->
+    <div class="panel">
+      <div class="panel-header">
+        <div class="panel-title">Team Workload</div>
+        <div class="panel-tag">open · resolved · breached</div>
+      </div>
+      <div class="panel-body">
+        <table class="team-table">
+          <thead>
+            <tr>
+              <th>Team</th>
+              <th>Open</th>
+              <th style="width:140px">Load</th>
+              <th>Resolved</th>
+              <th>Breached</th>
+            </tr>
+          </thead>
+          <tbody id="teamBody"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Category Breakdown -->
+    <div class="panel">
+      <div class="panel-header">
+        <div class="panel-title">Category Breakdown</div>
+        <div class="panel-tag">all tickets</div>
+      </div>
+      <div class="panel-body" id="catBreakdown"></div>
+    </div>
+  </div>
+
+  <!-- ROW 3: Workflow Diagram (full width) -->
+  <div class="grid-1">
+    <div class="panel">
+      <div class="panel-header">
+        <div class="panel-title">Ticket Lifecycle — System Workflow</div>
+        <div class="panel-tag">automated pipeline</div>
+      </div>
+      <div class="panel-body">
+        <div class="flow-wrap">
+
+          <div class="flow-node">
+            <div class="flow-box intake">
+              📥 Intake
+              <div class="flow-sub">Email · Slack<br>Web · API</div>
+            </div>
+          </div>
+          <div class="flow-arrow">→</div>
+
+          <div class="flow-node">
+            <div class="flow-box triage">
+              🧠 AI Triage
+              <div class="flow-sub">NLP classify<br>Priority · SLA</div>
+            </div>
+          </div>
+          <div class="flow-arrow">→</div>
+
+          <div style="display:flex;flex-direction:column;gap:8px;padding-top:0">
+            <div style="display:flex;align-items:center;gap:0">
+              <div class="flow-node">
+                <div class="flow-box auto">
+                  ✅ Auto-Resolve
+                  <div class="flow-sub">Password · FAQ<br>0 human touch</div>
+                </div>
+              </div>
+            </div>
+            <div style="display:flex;align-items:center;gap:0">
+              <div class="flow-node">
+                <div class="flow-box assign">
+                  👤 Assign Agent
+                  <div class="flow-sub">Skill match<br>Load balance</div>
+                </div>
+              </div>
+              <div class="flow-arrow">→</div>
+              <div class="flow-node">
+                <div class="flow-box sla">
+                  ⏱ SLA Watch
+                  <div class="flow-sub">Warn · At Risk<br>Breach alert</div>
+                </div>
+              </div>
+              <div class="flow-arrow">→</div>
+              <div style="display:flex;flex-direction:column;gap:8px">
+                <div class="flow-node">
+                  <div class="flow-box escalate">
+                    🚨 Escalate
+                    <div class="flow-sub">L1→L2→L3<br>PagerDuty</div>
+                  </div>
+                </div>
+                <div class="flow-node">
+                  <div class="flow-box resolve">
+                    ✔ Resolve
+                    <div class="flow-sub">Note · Email<br>Audit trail</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Escalation Ladder Legend -->
+        <div style="margin-top:16px;padding-top:14px;border-top:1px solid var(--border);display:flex;gap:24px;flex-wrap:wrap">
+          <div style="font-size:11px;color:var(--muted)">
+            <span style="color:var(--accent);font-weight:600">Escalation Ladder:</span>
+            L1-Support → L2-SysAdmin → L3-Engineering → Management Alert
+          </div>
+          <div style="font-size:11px;color:var(--muted)">
+            <span style="color:var(--accent);font-weight:600">SLA Tiers:</span>
+            P1=1h · P2=4h · P3=24h · P4=72h
+          </div>
+          <div style="font-size:11px;color:var(--muted)">
+            <span style="color:var(--accent);font-weight:600">Notifications:</span>
+            Email · Slack · PagerDuty (P1 only)
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ROW 4: SLA At Risk + Recent Tickets -->
+  <div class="grid-2">
+
+    <!-- SLA Ticker -->
+    <div class="panel">
+      <div class="panel-header">
+        <div class="panel-title">SLA Status — Open Tickets</div>
+        <div class="panel-tag">sorted by breach risk</div>
+      </div>
+      <div class="panel-body">
+        <table class="sla-table">
+          <thead>
+            <tr>
+              <th>Ticket</th>
+              <th>Priority</th>
+              <th>Team</th>
+              <th>SLA Used</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody id="slaBody"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Recent Tickets -->
+    <div class="panel">
+      <div class="panel-header">
+        <div class="panel-title">Recent Tickets</div>
+        <div class="panel-tag">latest intake</div>
+      </div>
+      <div class="panel-body">
+        <table class="ticket-table">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Title</th>
+              <th>Priority</th>
+              <th>Team</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody id="ticketBody"></tbody>
+        </table>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    <div class="footer-left">Automated IT Helpdesk System · Triage + Workflow + Monitoring · 
+      <span style="font-family:var(--font-mono)">v1.0.0</span></div>
+    <div class="footer-links">
+      <a class="footer-link" href="../README.md">README</a>
+      <a class="footer-link" href="../src/triage/triage_engine.py">triage_engine.py</a>
+      <a class="footer-link" href="../src/automation/workflow_engine.py">workflow_engine.py</a>
+      <a class="footer-link" href="../src/monitoring/monitoring_engine.py">monitoring_engine.py</a>
+    </div>
+  </div>
+</div>
+
+<script>
+// ── CLOCK ──
+function updateClock() {
+  const now = new Date();
+  document.getElementById('clock').textContent =
+    now.toISOString().replace('T', ' ').slice(0, 19) + ' UTC';
+}
+updateClock(); setInterval(updateClock, 1000);
+
+// ── DATA ──
+const volumeData = {
+  "2026-03-10": 6, "2026-03-11": 8, "2026-03-12": 8,
+  "2026-03-13": 7, "2026-03-14": 6, "2026-03-15": 10,
+  "2026-03-16": 8, "2026-03-17": 7
+};
+
+const teamData = {
+  "L1-Support":     { open: 11, resolved: 12, breached: 9 },
+  "L2-SysAdmin":    { open: 7,  resolved: 4,  breached: 5 },
+  "L2-Security":    { open: 1,  resolved: 0,  breached: 1 },
+  "L2-Network":     { open: 5,  resolved: 1,  breached: 4 },
+  "Auto-Resolve":   { open: 0,  resolved: 13, breached: 0 },
+  "L3-Engineering": { open: 4,  resolved: 2,  breached: 4 },
+};
+
+const catData = {
+  "Hardware":              13,
+  "Password/Auth":         13,
+  "Software/App":          10,
+  "Email/Comms":           6,
+  "Network/Connectivity":  6,
+  "Onboarding":            5,
+  "Performance":           5,
+  "Access/Permissions":    1,
+  "Security/Incident":     1,
+};
+
+const slaData = [
+  { id: "TKT-7B84", prio: "P1-Critical", team: "L3-Engineering", pct: 16368, status: "BREACHED" },
+  { id: "TKT-AA40", prio: "P1-Critical", team: "L2-Network",     pct: 12356, status: "BREACHED" },
+  { id: "TKT-A02E", prio: "P1-Critical", team: "L2-SysAdmin",    pct: 9485,  status: "BREACHED" },
+  { id: "TKT-828D", prio: "P1-Critical", team: "L3-Engineering", pct: 8010,  status: "BREACHED" },
+  { id: "TKT-50EE", prio: "P3-Medium",   team: "L1-Support",     pct: 693,   status: "BREACHED" },
+  { id: "TKT-92D8", prio: "P3-Medium",   team: "L2-SysAdmin",    pct: 692,   status: "BREACHED" },
+  { id: "TKT-C19A", prio: "P3-Medium",   team: "L1-Support",     pct: 76,    status: "AT_RISK"  },
+  { id: "TKT-D441", prio: "P3-Medium",   team: "L2-Network",     pct: 63,    status: "WARNING"  },
+  { id: "TKT-E772", prio: "P3-Medium",   team: "L1-Support",     pct: 51,    status: "WARNING"  },
+  { id: "TKT-F003", prio: "P3-Medium",   team: "L2-SysAdmin",    pct: 22,    status: "ON_TRACK" },
+];
+
+const recentTickets = [
+  { id: "TKT-A001", title: "URGENT: Company VPN down - all engineers affected", prio: "P1-Critical", team: "L3-Engineering", status: "resolved" },
+  { id: "TKT-A003", title: "Suspicious phishing email with link", prio: "P2-High",     team: "L2-Security",   status: "resolved" },
+  { id: "TKT-A008", title: "Ransomware alert on workstation", prio: "P1-Critical", team: "L2-Security",   status: "resolved" },
+  { id: "TKT-A013", title: "URGENT: Finance team all locked out of ERP", prio: "P1-Critical", team: "L3-Engineering", status: "resolved" },
+  { id: "TKT-A022", title: "Possible data breach - unauthorized login from Russia", prio: "P1-Critical", team: "L2-Security", status: "in_progress" },
+  { id: "TKT-A023", title: "VPN connection unstable - drops every hour", prio: "P3-Medium",   team: "L2-Network",    status: "open" },
+  { id: "TKT-A011", title: "Backup job failed last 3 nights - SQL-PROD-01", prio: "P2-High",     team: "L2-SysAdmin",   status: "in_progress" },
+  { id: "TKT-A020", title: "Microsoft Teams crashing on startup", prio: "P3-Medium",   team: "L1-Support",    status: "open" },
+];
+
+// ── RENDER VOLUME CHART ──
+(function() {
+  const chart = document.getElementById('volumeChart');
+  const max = Math.max(...Object.values(volumeData));
+  const entries = Object.entries(volumeData);
+  entries.forEach(([date, val]) => {
+    const pct = (val / max) * 100;
+    const day = date.slice(5); // MM-DD
+    chart.innerHTML += `
+      <div class="bar-group">
+        <div class="bar-val">${val}</div>
+        <div class="bar" style="height:${pct}%" title="${date}: ${val} tickets"></div>
+        <div class="bar-label">${day}</div>
+      </div>`;
+  });
+})();
+
+// ── RENDER TEAM TABLE ──
+(function() {
+  const body = document.getElementById('teamBody');
+  const teamBadge = t => {
+    if (t.startsWith('L1')) return 'badge-l1';
+    if (t.startsWith('L2')) return 'badge-l2';
+    if (t.startsWith('L3')) return 'badge-l3';
+    return 'badge-auto';
+  };
+  const maxOpen = Math.max(...Object.values(teamData).map(d => d.open));
+  Object.entries(teamData).forEach(([name, d]) => {
+    const pct = maxOpen > 0 ? (d.open / maxOpen) * 100 : 0;
+    const isDanger = d.breached > 0;
+    body.innerHTML += `
+      <tr>
+        <td><span class="team-name">${name}</span></td>
+        <td><span class="num">${d.open}</span></td>
+        <td>
+          <div class="workload-bar-row">
+            <div class="workload-bar-track">
+              <div class="workload-bar-fill ${isDanger ? 'danger' : ''}" style="width:${pct}%"></div>
+            </div>
+          </div>
+        </td>
+        <td><span class="num" style="color:var(--green)">${d.resolved}</span></td>
+        <td><span class="num" style="color:${d.breached > 0 ? 'var(--red)' : 'var(--muted)'}">${d.breached}</span></td>
+      </tr>`;
+  });
+})();
+
+// ── RENDER CATEGORY BREAKDOWN ──
+(function() {
+  const el = document.getElementById('catBreakdown');
+  const max = Math.max(...Object.values(catData));
+  Object.entries(catData).forEach(([name, val]) => {
+    const pct = (val / max) * 100;
+    el.innerHTML += `
+      <div class="cat-row">
+        <div class="cat-name">${name}</div>
+        <div class="cat-bar-track"><div class="cat-bar-fill" style="width:${pct}%"></div></div>
+        <div class="cat-count">${val}</div>
+      </div>`;
+  });
+})();
+
+// ── RENDER SLA TABLE ──
+(function() {
+  const body = document.getElementById('slaBody');
+  const statusClass = s => {
+    if (s === 'BREACHED') return 'sla-breached';
+    if (s === 'AT_RISK')  return 'sla-at-risk';
+    if (s === 'WARNING')  return 'sla-warning';
+    return 'sla-ok';
+  };
+  const prioClass = p => {
+    if (p.startsWith('P1')) return 'p1';
+    if (p.startsWith('P2')) return 'p2';
+    if (p.startsWith('P3')) return 'p3';
+    return 'p4';
+  };
+  slaData.forEach(s => {
+    const pctDisplay = s.pct > 1000 ? `${(s.pct/100).toFixed(0)}x` : `${s.pct}%`;
+    body.innerHTML += `
+      <tr>
+        <td><span class="tid">${s.id}</span></td>
+        <td><span class="prio-tag ${prioClass(s.prio)}">${s.prio}</span></td>
+        <td><span style="font-size:11px;color:var(--muted)">${s.team}</span></td>
+        <td><span style="font-family:var(--font-mono);font-size:11px">${pctDisplay}</span></td>
+        <td><span class="sla-status ${statusClass(s.status)}">${s.status}</span></td>
+      </tr>`;
+  });
+})();
+
+// ── RENDER RECENT TICKETS ──
+(function() {
+  const body = document.getElementById('ticketBody');
+  const prioClass = p => {
+    if (p.startsWith('P1')) return 'p1';
+    if (p.startsWith('P2')) return 'p2';
+    if (p.startsWith('P3')) return 'p3';
+    return 'p4';
+  };
+  const statusColor = s => {
+    if (s === 'resolved')    return 'var(--green)';
+    if (s === 'in_progress') return 'var(--yellow)';
+    if (s === 'open')        return 'var(--accent)';
+    return 'var(--muted)';
+  };
+  recentTickets.forEach(t => {
+    body.innerHTML += `
+      <tr>
+        <td><span class="tid">${t.id}</span></td>
+        <td><div class="ticket-title" title="${t.title}">${t.title}</div></td>
+        <td><span class="prio-tag ${prioClass(t.prio)}">${t.prio}</span></td>
+        <td><span class="team-chip">${t.team}</span></td>
+        <td><span style="font-size:11px;font-family:var(--font-mono);color:${statusColor(t.status)}">${t.status}</span></td>
+      </tr>`;
+  });
+})();
+</script>
+</body>
+</html>
