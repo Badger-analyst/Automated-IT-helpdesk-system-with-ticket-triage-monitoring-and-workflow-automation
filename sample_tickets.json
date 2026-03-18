@@ -1,0 +1,56 @@
+[
+  {
+    "ticket_id": "TKT-001",
+    "submitted_at": "2024-01-15T08:03:22",
+    "user": "john.smith@company.com",
+    "department": "Finance",
+    "subject": "Cannot log into my computer - password expired",
+    "body": "Hi, I tried to log in this morning but it says my password has expired. I have an urgent report due at 9am. Please help ASAP.",
+    "source": "email"
+  },
+  {
+    "ticket_id": "TKT-002",
+    "submitted_at": "2024-01-15T08:15:44",
+    "user": "sarah.jones@company.com",
+    "department": "Sales",
+    "subject": "No internet connection at my desk",
+    "body": "My internet has been down since I arrived. I cannot connect to any websites or internal systems. My IP address shows 169.254.x.x.",
+    "source": "portal"
+  },
+  {
+    "ticket_id": "TKT-003",
+    "submitted_at": "2024-01-15T08:22:11",
+    "user": "mike.brown@company.com",
+    "department": "HR",
+    "subject": "Microsoft Teams keeps crashing",
+    "body": "Teams crashes every time I try to join a meeting. I have reinstalled it twice. Error code: 0xCAA70007. This is affecting my whole team.",
+    "source": "email"
+  },
+  {
+    "ticket_id": "TKT-004",
+    "submitted_at": "2024-01-15T09:01:55",
+    "user": "linda.davis@company.com",
+    "department": "IT",
+    "subject": "Server disk usage at 94% - critical alert",
+    "body": "Received automated alert. FILE-SVR-01 disk C: is at 94% capacity. Services may begin failing if not addressed.",
+    "source": "monitoring"
+  },
+  {
+    "ticket_id": "TKT-005",
+    "submitted_at": "2024-01-15T09:45:00",
+    "user": "peter.wilson@company.com",
+    "department": "Legal",
+    "subject": "Need access to shared drive Q:",
+    "body": "I have just joined the Legal team and need access to the Q: shared drive for case documents. My manager is claire.west@company.com.",
+    "source": "portal"
+  },
+  {
+    "ticket_id": "TKT-006",
+    "submitted_at": "2024-01-15T10:12:33",
+    "user": "anna.taylor@company.com",
+    "department": "Marketing",
+    "subject": "Laptop running very slowly, takes 10 mins to boot",
+    "body": "My laptop has been extremely slow for the past week. Takes about 10 minutes to boot and programs freeze constantly. Model: Dell Latitude 5520.",
+    "source": "email"
+  }
+]
