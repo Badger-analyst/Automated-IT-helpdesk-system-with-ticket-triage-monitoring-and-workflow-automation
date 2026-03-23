@@ -1,0 +1,201 @@
+ticket_id,ticket_text,category,priority
+TKT-0001,The headcount report is showing duplicates for some employees,INC-DATA,P3
+TKT-0002,"Good morning, Inventory management software crashing for all warehouse staff Let me know what to do.",INC-SW,P2
+TKT-0003,Can the helpdesk advise on the best tool for creating org charts?,INC-GEN,P4
+TKT-0004,Data is missing from the dashboard for the last 3 days,INC-DATA,P3
+TKT-0005,"VPN keeps disconnecting during video calls, can't stay connected",INC-NET,P2
+TKT-0006,"Hi team, Attendance data for last month was not captured in the HR system Please assist.",INC-DATA,P3
+TKT-0007,Getting 'runtime error' when running the monthly invoice macro,INC-SW,P3
+TKT-0008,The Power BI dataset is not refreshing automatically as scheduled,INC-DATA,P3
+TKT-0009,Attention IT: My headset microphone stopped working on calls,INC-HW,P3
+TKT-0010,Entire finance team locked out of the accounting system before month-end close,INC-ACC,P2
+TKT-0011,"Hi support, The shared scanner on level 4 is not scanning to email Let me know what to do.",INC-HW,P3
+TKT-0012,Where do I submit an expense claim in the finance system?,INC-GEN,P5
+TKT-0013,"Hi there, Internet connection dropping every 20 minutes in the open-plan office Thanks.",INC-NET,P2
+TKT-0014,I'd like to request access to the project management tool,INC-GEN,P4
+TKT-0015,My docking station is not detecting my external monitors,INC-HW,P3
+TKT-0016,KPI figures on the executive dashboard don't match the source data This is blocking my work.,INC-DATA,P3
+TKT-0017,"Hi support, Network printer not reachable from any device on the floor Appreciate your help.",INC-NET,P2
+TKT-0018,"Hi support, The ERP system throws an error when I try to submit purchase orders Let me know what to do.",INC-SW,P3
+TKT-0019,The shared scanner on level 4 is not scanning to email,INC-HW,P3
+TKT-0020,"Hi support, The CRM desktop app won't open after the latest Windows update Thanks.",INC-SW,P3
+TKT-0021,Can I get a second monitor for my workstation?,INC-GEN,P5
+TKT-0022,"Good morning, Two-factor authentication code not being accepted Appreciate your help.",INC-ACC,P3
+TKT-0023,"FYI – Can't print from the accounting software, printer shows offline Please assist.",INC-SW,P3
+TKT-0024,"Hello IT, The ERP system throws an error when I try to submit purchase orders This is blocking my work.",INC-SW,P3
+TKT-0025,I'm getting an authentication error on the payroll system,INC-ACC,P3
+TKT-0026,"Hi team, How do I archive old emails in Outlook?",INC-GEN,P5
+TKT-0027,The main office printer is completely dead – 30 staff affected,INC-HW,P2
+TKT-0028,Slack notifications stopped working on my Windows machine,INC-SW,P3
+TKT-0029,What's the approved video conferencing tool for external client calls?,INC-GEN,P5
+TKT-0030,"Hi there, WiFi signal is very weak in the new meeting rooms on level 2",INC-NET,P2
+TKT-0031,Please help – The ERP system throws an error when I try to submit purchase orders Appreciate your help.,INC-SW,P3
+TKT-0032,The payroll processing system is down – payroll run is due today,INC-SW,P2
+TKT-0033,Laptop battery drains from 100% to 0 in under 2 hours,INC-HW,P3
+TKT-0034,Internet connection dropping every 20 minutes in the open-plan office,INC-NET,P2
+TKT-0035,Entire 3rd floor has no network access since 9am,INC-NET,P2
+TKT-0036,"Hello IT, My headset microphone stopped working on calls Thanks.",INC-HW,P3
+TKT-0037,"Hello IT, Laptop won't charge even when plugged in Appreciate your help.",INC-HW,P3
+TKT-0038,Urgent: How do I set up a recurring meeting in Teams? This is blocking my work.,INC-GEN,P5
+TKT-0039,"Hi support, The finance application is very slow, taking 5 minutes to load reports Thanks.",INC-SW,P3
+TKT-0040,How do I change the default language on my laptop?,INC-GEN,P5
+TKT-0041,Please help – Can I get a second monitor for my workstation? Appreciate your help.,INC-GEN,P5
+TKT-0042,"Good morning, What is the process for requesting a new software licence? Thanks.",INC-GEN,P5
+TKT-0043,"Hi there, PowerPoint crashes every time I try to insert a video This is blocking my work.",INC-SW,P3
+TKT-0044,Data centre cooling unit failure – temperature rising rapidly,INC-HW,P1
+TKT-0045,The regulatory compliance report due today has missing data fields,INC-DATA,P2
+TKT-0046,What's the process for getting access to the shared network folder?,INC-GEN,P5
+TKT-0047,The monthly sales Power BI report is showing incorrect totals,INC-DATA,P3
+TKT-0048,"Hello IT, What's the best way to compress large files before emailing? Appreciate your help.",INC-GEN,P5
+TKT-0049,KPI figures on the executive dashboard don't match the source data,INC-DATA,P3
+TKT-0050,FYI – How do I enable dark mode in Outlook? Thanks.,INC-GEN,P5
+TKT-0051,Two-factor authentication code not being accepted,INC-ACC,P3
+TKT-0052,Chrome extension for our internal tool stopped working after update,INC-SW,P3
+TKT-0053,The CRM desktop app won't open after the latest Windows update,INC-SW,P3
+TKT-0054,"The finance application is very slow, taking 5 minutes to load reports",INC-SW,P3
+TKT-0055,"Hello IT, Data is missing from the dashboard for the last 3 days This is blocking my work.",INC-DATA,P3
+TKT-0056,Our customer-facing booking portal is returning 500 errors,INC-SW,P2
+TKT-0057,Urgent: I received a suspicious email asking for my banking credentials,INC-SEC,P1
+TKT-0058,Attention IT: What's the approved video conferencing tool for external client calls? Let me know what to do.,INC-GEN,P5
+TKT-0059,My headset microphone stopped working on calls,INC-HW,P3
+TKT-0060,"Hello IT, USB ports on my laptop are not recognising any devices Thanks.",INC-HW,P3
+TKT-0061,Someone logged into my email from a location I don't recognise,INC-SEC,P1
+TKT-0062,"I need a password reset, I've been locked out since this morning",INC-ACC,P3
+TKT-0063,Urgent: Laptop won't charge even when plugged in Please assist.,INC-HW,P3
+TKT-0064,Revenue figures in the dashboard differ from what accounting confirmed,INC-DATA,P3
+TKT-0065,"Hello IT, The main office printer is completely dead – 30 staff affected This is blocking my work.",INC-HW,P2
+TKT-0066,Contractor account still active 3 months after contract ended,INC-SEC,P2
+TKT-0067,I'd like to request a standing desk for my workstation,INC-GEN,P4
+TKT-0068,How do I connect to the office WiFi on my personal phone?,INC-GEN,P5
+TKT-0069,What is the process for requesting a new software licence?,INC-GEN,P5
+TKT-0070,Complete network outage at the Cape Town branch – no one can work Please assist.,INC-NET,P1
+TKT-0071,Entire company VPN is unreachable – all remote workers locked out,INC-NET,P1
+TKT-0072,An unknown USB device was found plugged into a workstation in reception,INC-SEC,P1
+TKT-0073,Complete network outage at the Cape Town branch – no one can work,INC-NET,P1
+TKT-0074,How do I archive old emails in Outlook?,INC-GEN,P5
+TKT-0075,I accidentally shared confidential client data with the wrong email address,INC-SEC,P1
+TKT-0076,The keyboard spacebar stopped working on my work laptop,INC-HW,P3
+TKT-0077,Cannot access any internal network drives from home VPN,INC-NET,P2
+TKT-0078,Board meeting dashboard is showing last month's figures – not updated,INC-DATA,P2
+TKT-0079,FYI – Can you show me how to share a Teams meeting link? Let me know what to do.,INC-GEN,P5
+TKT-0080,My Single Sign-On stopped working after IT maintenance last night,INC-ACC,P3
+TKT-0081,FYI – I received a suspicious email asking for my banking credentials Thanks.,INC-SEC,P1
+TKT-0082,"Hi support, Entire finance team locked out of the accounting system before month-end close Please assist.",INC-ACC,P2
+TKT-0083,"Latency is extremely high, Teams calls breaking up for the whole team",INC-NET,P2
+TKT-0084,The automated report scheduler has stopped running overnight jobs,INC-SW,P2
+TKT-0085,"Hi team, How do I set up a recurring meeting in Teams? This is blocking my work.",INC-GEN,P5
+TKT-0086,"Good morning, My Single Sign-On stopped working after IT maintenance last night Let me know what to do.",INC-ACC,P3
+TKT-0087,I received a suspicious email asking for my banking credentials,INC-SEC,P1
+TKT-0088,My account has been locked after too many failed attempts,INC-ACC,P3
+TKT-0089,Finance report shows different numbers depending on which filter is applied,INC-DATA,P3
+TKT-0090,"Attention IT: Microsoft Teams is not loading messages, stuck on the loading screen Please assist.",INC-SW,P3
+TKT-0091,FYI – Entire 3rd floor has no network access since 9am Please assist.,INC-NET,P2
+TKT-0092,"Microsoft Teams is not loading messages, stuck on the loading screen",INC-SW,P3
+TKT-0093,Please help – I'm getting an authentication error on the payroll system Appreciate your help.,INC-ACC,P3
+TKT-0094,The office printer is jamming every second print job Appreciate your help.,INC-HW,P3
+TKT-0095,"Hi there, Board meeting dashboard is showing last month's figures – not updated Thanks.",INC-DATA,P2
+TKT-0096,Server room UPS is showing a battery fault warning,INC-HW,P2
+TKT-0097,My webcam is not being detected by any application,INC-HW,P3
+TKT-0098,"Good morning, My Single Sign-On stopped working after IT maintenance last night Let me know what to do.",INC-ACC,P3
+TKT-0099,FYI – How do I archive old emails in Outlook? Appreciate your help.,INC-GEN,P5
+TKT-0100,Marketing team lost access to the campaign management platform,INC-ACC,P2
+TKT-0101,"FYI – I can't log into my account, it says my password is incorrect Thanks.",INC-ACC,P3
+TKT-0102,Remote desktop connection dropping every few minutes,INC-NET,P2
+TKT-0103,Can I get Microsoft Visio installed on my laptop for process mapping?,INC-GEN,P4
+TKT-0104,Laptop is running extremely hot and the fan is very loud,INC-HW,P3
+TKT-0105,PowerPoint crashes every time I try to insert a video,INC-SW,P3
+TKT-0106,"Good morning, I think I clicked on a phishing link – my computer is behaving strangely Urgent please.",INC-SEC,P1
+TKT-0107,I received a fake invoice email that looked like it came from our CFO,INC-SEC,P1
+TKT-0108,What's the best way to compress large files before emailing?,INC-GEN,P5
+TKT-0109,Urgent: My laptop screen has developed a flickering issue Let me know what to do.,INC-HW,P3
+TKT-0110,How do I set up an out-of-office reply in Outlook?,INC-GEN,P5
+TKT-0111,Can you help me configure my email signature?,INC-GEN,P5
+TKT-0112,Attention IT: New joiner batch of 12 employees have no system access on their first day Thanks.,INC-ACC,P2
+TKT-0113,FYI – Account locked out after switching to a new laptop This is blocking my work.,INC-ACC,P3
+TKT-0114,"Hi support, Complete network outage at the Cape Town branch – no one can work Let me know what to do.",INC-NET,P1
+TKT-0115,Laptop won't charge even when plugged in,INC-HW,P3
+TKT-0116,"Hi team, Inventory management software crashing for all warehouse staff Please assist.",INC-SW,P2
+TKT-0117,"Hi support, Network printer not reachable from any device on the floor",INC-NET,P2
+TKT-0118,The automated data pipeline failed and the report hasn't refreshed,INC-DATA,P3
+TKT-0119,Attention IT: My antivirus software is showing a license expired warning,INC-SW,P3
+TKT-0120,Please help – An unknown USB device was found plugged into a workstation in reception Please assist.,INC-SEC,P1
+TKT-0121,"Hi team, The automated report scheduler has stopped running overnight jobs This is blocking my work.",INC-SW,P2
+TKT-0122,Please help – Entire finance team locked out of the accounting system before month-end close Urgent please.,INC-ACC,P2
+TKT-0123,"Good morning, Audit flagged that a terminated employee still has active system access",INC-SEC,P2
+TKT-0124,FYI – Complete network outage at the Cape Town branch – no one can work Urgent please.,INC-NET,P1
+TKT-0125,How do I transfer files from my old laptop to the new one?,INC-GEN,P5
+TKT-0126,Urgent: Getting a warning that my PC may be infected with malware Let me know what to do.,INC-SEC,P1
+TKT-0127,"Can't log into Teams, says my account is disabled",INC-ACC,P3
+TKT-0128,My antivirus software is showing a license expired warning,INC-SW,P3
+TKT-0129,USB ports on my laptop are not recognising any devices,INC-HW,P3
+TKT-0130,How do I enable dark mode in Outlook?,INC-GEN,P5
+TKT-0131,"Urgent: Can't access the HR portal, getting 'invalid credentials' error Thanks.",INC-ACC,P3
+TKT-0132,The pivot table in the monthly report is pulling from the wrong date range,INC-DATA,P3
+TKT-0133,A colleague's account is sending out spam emails without their knowledge,INC-SEC,P2
+TKT-0134,I want to request a software upgrade from Office 2019 to Microsoft 365,INC-GEN,P4
+TKT-0135,Inventory management software crashing for all warehouse staff,INC-SW,P2
+TKT-0136,Urgent: Board meeting dashboard is showing last month's figures – not updated Let me know what to do.,INC-DATA,P2
+TKT-0137,New joiner batch of 12 employees have no system access on their first day,INC-ACC,P2
+TKT-0138,Attention IT: I received a fake invoice email that looked like it came from our CFO Let me know what to do.,INC-SEC,P1
+TKT-0139,My browser is redirecting to unknown websites automatically,INC-SEC,P1
+TKT-0140,"Hi team, Can the helpdesk advise on the best tool for creating org charts? Let me know what to do.",INC-GEN,P4
+TKT-0141,"Hi there, VPN keeps disconnecting during video calls, can't stay connected",INC-NET,P2
+TKT-0142,VS Code keeps freezing when I open large Python files,INC-SW,P3
+TKT-0143,Server is down and taking all shared drives with it,INC-HW,P1
+TKT-0144,Network switch on level 5 is making unusual noises and dropping connections,INC-HW,P2
+TKT-0145,My laptop screen has developed a flickering issue,INC-HW,P3
+TKT-0146,"Can't access the HR portal, getting 'invalid credentials' error",INC-ACC,P3
+TKT-0147,"Zoom video is black during calls, audio works fine",INC-SW,P3
+TKT-0148,WiFi signal is very weak in the new meeting rooms on level 2,INC-NET,P2
+TKT-0149,All internet access down across the head office building,INC-NET,P1
+TKT-0150,"Hi there, What is the process for requesting a new software licence?",INC-GEN,P5
+TKT-0151,Attention IT: All Power BI reports across the business show stale data from 3 days ago This is blocking my work.,INC-DATA,P2
+TKT-0152,"Hello IT, What's the process for getting access to the shared network folder? This is blocking my work.",INC-GEN,P5
+TKT-0153,Network printer not reachable from any device on the floor,INC-NET,P2
+TKT-0154,Can you show me how to share a Teams meeting link?,INC-GEN,P5
+TKT-0155,"Adobe Acrobat won't install, showing error code 1603",INC-SW,P3
+TKT-0156,"Hi team, Slack notifications stopped working on my Windows machine Thanks.",INC-SW,P3
+TKT-0157,"Hello IT, Data is missing from the dashboard for the last 3 days",INC-DATA,P3
+TKT-0158,How do I set up a recurring meeting in Teams?,INC-GEN,P5
+TKT-0159,Account locked out after switching to a new laptop,INC-ACC,P3
+TKT-0160,"Hello IT, Can I get a second monitor for my workstation? Please assist.",INC-GEN,P5
+TKT-0161,"Can't print from the accounting software, printer shows offline",INC-SW,P3
+TKT-0162,I forgot my password and the reset email isn't arriving,INC-ACC,P3
+TKT-0163,"Hi support, Server room UPS is showing a battery fault warning Urgent please.",INC-HW,P2
+TKT-0164,Getting 'account not found' when trying to log into Salesforce,INC-ACC,P3
+TKT-0165,My mouse is double-clicking randomly without me pressing it twice,INC-HW,P3
+TKT-0166,The headcount report is showing duplicates for some employees Thanks.,INC-DATA,P3
+TKT-0167,"Hello IT, Getting a warning that my PC may be infected with malware",INC-SEC,P1
+TKT-0168,Attention IT: KPI figures on the executive dashboard don't match the source data Please assist.,INC-DATA,P3
+TKT-0169,Attention IT: Can you help me configure my email signature? Please assist.,INC-GEN,P5
+TKT-0170,Please help – Cannot access any internal network drives from home VPN,INC-NET,P2
+TKT-0171,"Hello IT, My webcam is not being detected by any application Let me know what to do.",INC-HW,P3
+TKT-0172,"I can't log into my account, it says my password is incorrect",INC-ACC,P3
+TKT-0173,Urgent: KPI figures on the executive dashboard don't match the source data Let me know what to do.,INC-DATA,P3
+TKT-0174,"Good morning, The office printer is jamming every second print job Thanks.",INC-HW,P3
+TKT-0175,Attendance data for last month was not captured in the HR system,INC-DATA,P3
+TKT-0176,Outlook is not syncing emails since yesterday afternoon,INC-SW,P3
+TKT-0177,My VPN login stopped working after I changed my password,INC-ACC,P3
+TKT-0178,Getting a warning that my PC may be infected with malware,INC-SEC,P1
+TKT-0179,Data export from the CRM is missing 200 records,INC-DATA,P3
+TKT-0180,Customer records imported incorrectly – addresses are in the wrong fields,INC-DATA,P3
+TKT-0181,The shared scanner on level 4 is not scanning to email Let me know what to do.,INC-HW,P3
+TKT-0182,Please help – My mouse is double-clicking randomly without me pressing it twice Thanks.,INC-HW,P3
+TKT-0183,"Hi there, How do I change the default language on my laptop? Let me know what to do.",INC-GEN,P5
+TKT-0184,All Power BI reports across the business show stale data from 3 days ago,INC-DATA,P2
+TKT-0185,"Hello IT, Excel keeps crashing when I open files larger than 10MB Urgent please.",INC-SW,P3
+TKT-0186,"Good morning, Can't access the HR portal, getting 'invalid credentials' error Please assist.",INC-ACC,P3
+TKT-0187,I think I clicked on a phishing link – my computer is behaving strangely,INC-SEC,P1
+TKT-0188,"Hi there, Entire 3rd floor has no network access since 9am Let me know what to do.",INC-NET,P2
+TKT-0189,Someone logged into my email from a location I don't recognise Let me know what to do.,INC-SEC,P1
+TKT-0190,Urgent: USB ports on my laptop are not recognising any devices Appreciate your help.,INC-HW,P3
+TKT-0191,Excel keeps crashing when I open files larger than 10MB,INC-SW,P3
+TKT-0192,Suspicious login alerts from a foreign country on my Microsoft account,INC-SEC,P1
+TKT-0193,Audit flagged that a terminated employee still has active system access,INC-SEC,P2
+TKT-0194,"Hello IT, Our customer-facing booking portal is returning 500 errors",INC-SW,P2
+TKT-0195,The ERP system throws an error when I try to submit purchase orders,INC-SW,P3
+TKT-0196,"Hi team, I'd like to request access to the project management tool This is blocking my work.",INC-GEN,P4
+TKT-0197,"Hi there, Zoom video is black during calls, audio works fine Appreciate your help.",INC-SW,P3
+TKT-0198,The office printer is jamming every second print job,INC-HW,P3
+TKT-0199,5 users in the sales department can't access CRM – deals at risk,INC-ACC,P2
+TKT-0200,"Ransomware warning appeared on my screen, files look encrypted",INC-SEC,P1
