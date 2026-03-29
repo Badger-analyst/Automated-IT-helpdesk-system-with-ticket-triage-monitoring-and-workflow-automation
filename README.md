@@ -101,12 +101,57 @@ Analysts only handle tickets that genuinely need them
 
 ---
 
+## 🏛️ ITIL Framework Integration
+
+This system now implements **ITIL v4** best practices on top of the automation engine. ITIL adds a formal structure for classifying, prioritising, and tracking tickets in a way that aligns with industry-standard IT Service Management.
+
+### ITIL Ticket Types
+
+| Type | What It Is | Example |
+|------|-----------|---------|
+| 🔥 **Incident** | Unplanned service interruption | Teams crashes, WiFi down, disk full |
+| 📝 **Service Request** | Standard, pre-approved request | Password reset, new access for joiner |
+| 🔍 **Problem** | Root cause investigation | Disk fills up every week — 3rd time |
+| 🔧 **Change** | Planned IT modification | OS patch, deploy new application |
+
+### Impact × Urgency Priority Matrix
+
+```
+                URGENCY →
+            LOW      MEDIUM     HIGH
+          ┌────────┬──────────┬──────────┐
+   HIGH   │  HIGH  │ CRITICAL │ CRITICAL │  ← e.g. server down, whole team blocked
+ I ───────┼────────┼──────────┼──────────┤
+ M MEDIUM │  MED   │   HIGH   │   HIGH   │  ← e.g. shared drive inaccessible
+ P ───────┼────────┼──────────┼──────────┤
+ A LOW    │  LOW   │   MED    │   MED    │  ← e.g. single user, slow Outlook
+ C        └────────┴──────────┴──────────┘
+ T
+```
+
+### Ticket Lifecycle States
+
+```
+NEW → ASSIGNED → IN_PROGRESS ──► RESOLVED → CLOSED
+                      │
+                   PENDING  (waiting on user / 3rd party)
+```
+
+📖 **Full documentation:** See [`ITIL_CONCEPTS.md`](./ITIL_CONCEPTS.md) for deep-dive explanations, diagrams, a glossary, and code examples.
+
+---
+
 ## 📁 Repository Structure
 
 ```
 smart-helpdesk/
 │
 ├── main.py                              ← Entry point — runs the full pipeline
+│
+├── ticket_engine.py                     ← Classifier, priority engine, routing
+├── itil_workflow.py                     ← 🆕 ITIL enrichment layer (type, lifecycle, matrix)
+├── logger.py                            ← JSON logging + SLA reporting
+├── ITIL_CONCEPTS.md                     ← 🆕 ITIL reference guide with diagrams & glossary
 │
 ├── data/
 │   └── sample_tickets.json             ← Simulated incoming tickets
@@ -232,11 +277,13 @@ PRIORITY: CRITICAL: 1  HIGH: 2  MEDIUM: 2  LOW: 1
 
 ## 🚀 Planned Improvements
 
+- [x] **ITIL workflow layer** — ticket typing, lifecycle states, Impact × Urgency matrix, problem detection
 - [ ] Email ingestion via `imaplib` — read directly from a support mailbox
-- [ ] Flask web dashboard — view and action tickets in a browser
+- [ ] Flask web dashboard — view and action tickets in a browser with lifecycle state controls
 - [ ] ServiceNow / Jira REST API integration — create tickets in real ITSM tools
 - [ ] ML classification using scikit-learn — replace keyword matching
-- [ ] Slack / Teams notification for analyst escalations
+- [ ] Slack / Teams notification for analyst escalations and SLA breach warnings
+- [ ] CMDB integration — link tickets to configuration items
 
 ---
 
