@@ -28,6 +28,7 @@ from datetime import datetime
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), "scripts", "python"))
 
 from ticket_engine import process_all_tickets, print_ticket_summary
+from itil_workflow import run_itil_enrichment, print_itil_report
 from logger import log_tickets, generate_report, load_log
 
 
@@ -73,23 +74,28 @@ def run_pipeline(ticket_file: str, dry_run: bool = True):
     print("━" * 65)
 
     # Step 1 — Classify tickets
-    print(f"\n[1/4] Loading and classifying tickets from: {ticket_file}")
+    print(f"\n[1/5] Loading and classifying tickets from: {ticket_file}")
     tickets = process_all_tickets(ticket_file)
     print(f"      {len(tickets)} tickets classified.")
 
-    # Step 2 — Print triage summary
-    print("\n[2/4] Triage summary:")
-    print_ticket_summary(tickets)
+    # Step 2 — ITIL Enrichment
+    print("\n[2/5] Applying ITIL v4 enrichment...")
+    tickets = run_itil_enrichment(tickets)
+    print(f"      ITIL types and Impact/Urgency matrix applied.")
 
-    # Step 3 — Trigger remediation for auto-resolvable tickets
+    # Step 3 — Print triage summary
+    print("\n[3/5] Triage summary:")
+    print_itil_report(tickets)
+
+    # Step 4 — Trigger remediation for auto-resolvable tickets
     auto_tickets = [t for t in tickets if t["auto_resolve"]]
-    print(f"[3/4] Triggering remediation for {len(auto_tickets)} auto-resolvable ticket(s):")
+    print(f"[4/5] Triggering remediation for {len(auto_tickets)} auto-resolvable ticket(s):")
     for ticket in auto_tickets:
         print(f"\n  → {ticket['ticket_id']} | {ticket['category'].replace('_', ' ').title()}")
         trigger_remediation(ticket, dry_run=dry_run)
 
-    # Step 4 — Log everything
-    print(f"\n[4/4] Logging all tickets...")
+    # Step 5 — Log everything
+    print(f"\n[5/5] Logging all tickets...")
     log = log_tickets(tickets)
     generate_report(log)
 

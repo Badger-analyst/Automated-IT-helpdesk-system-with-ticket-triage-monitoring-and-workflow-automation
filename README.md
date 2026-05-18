@@ -148,10 +148,8 @@ smart-helpdesk/
 │
 ├── main.py                              ← Entry point — runs the full pipeline
 │
-├── ticket_engine.py                     ← Classifier, priority engine, routing
-├── itil_workflow.py                     ← 🆕 ITIL enrichment layer (type, lifecycle, matrix)
-├── logger.py                            ← JSON logging + SLA reporting
 ├── ITIL_CONCEPTS.md                     ← 🆕 ITIL reference guide with diagrams & glossary
+├── AZURE_INTEGRATION.md                 ← 🆕 Azure cloud-native migration guide
 │
 ├── data/
 │   └── sample_tickets.json             ← Simulated incoming tickets
@@ -159,12 +157,15 @@ smart-helpdesk/
 ├── scripts/
 │   ├── python/
 │   │   ├── ticket_engine.py            ← Classifier, priority engine, routing
-│   │   └── logger.py                   ← JSON logging + SLA reporting
+│   │   ├── itil_workflow.py            ← 🆕 ITIL enrichment layer
+│   │   ├── logger.py                   ← JSON logging + SLA reporting
+│   │   └── azure_function_handler.py   ← 🆕 Azure Function PoC
 │   │
 │   └── powershell/
 │       ├── reset_password.ps1          ← AD account unlock + password reset
 │       ├── clear_disk_space.ps1        ← Temp file + cache cleanup
-│       └── network_diagnostics.ps1     ← Diagnostic data collection
+│       ├── network_diagnostics.ps1     ← Diagnostic data collection
+│       └── azure_entra_id_reset.ps1    ← 🆕 Azure Entra ID (Graph) remediation
 │
 └── logs/
     ├── ticket_log.json                 ← Persistent ticket history
@@ -278,6 +279,7 @@ PRIORITY: CRITICAL: 1  HIGH: 2  MEDIUM: 2  LOW: 1
 ## 🚀 Planned Improvements
 
 - [x] **ITIL workflow layer** — ticket typing, lifecycle states, Impact × Urgency matrix, problem detection
+- [x] **Azure Integration** — cloud-native architecture mapping, Entra ID remediation, and Azure Functions PoC (see [`AZURE_INTEGRATION.md`](./AZURE_INTEGRATION.md))
 - [ ] Email ingestion via `imaplib` — read directly from a support mailbox
 - [ ] Flask web dashboard — view and action tickets in a browser with lifecycle state controls
 - [ ] ServiceNow / Jira REST API integration — create tickets in real ITSM tools
